@@ -1,1 +1,23 @@
+<% @products.each do |product|%>
+  <%= render partial: "product", locals: {product: product}%>
+<%end%>
 
+
+<script type="text/javascript" charset="utf-8">
+$(function(){
+  $('.js-more').on('click', function(){
+    var id= $(this).data("id")
+    $.get(`/products/${id}/body`, function(data){
+      let $more=$("#body-"+id)
+      $more.html(data.description)
+      if(data.inventory>0){
+        $more.append("<p>Available</p>")
+      } else {
+          $more.append("<p>Sold Out</p>")
+      }
+    })
+  })
+})
+
+
+</script>
